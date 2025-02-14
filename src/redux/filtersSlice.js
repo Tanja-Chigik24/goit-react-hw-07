@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const slice = createSlice({
+const filtersSlice = createSlice({
   name: "filters",
   initialState: {
     name: "",
@@ -11,9 +11,6 @@ const slice = createSlice({
     },
   },
 });
-
-// Експортуємо фабрики екшенів
-export const { changeFilter } = slice.actions;
-
-// Експортуємо редюсер слайсу
-export default slice.reducer;
+export const selectNameFilter = (state) => state.filters.name;
+export const { changeFilter } = filtersSlice.actions;
+export const filtersReducer = filtersSlice.reducer;

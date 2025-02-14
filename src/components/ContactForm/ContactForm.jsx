@@ -14,32 +14,27 @@ const UserSchema = Yup.object().shape({
     .required("Required"),
 });
 
-// 1. Імпортуємо хук
 import { useDispatch } from "react-redux";
-// 2. Імпортуємо фабрику екшену
-import { addContact } from "../../redux/contactsSlice";
+import { addContact } from "../../redux/contactsOps";
 
 export const ContactForm = () => {
-  // 3. Отримуємо посилання на функцію відправки екшенів
   const dispatch = useDispatch();
-  // 4. Викликаємо фабрику екшену та передаємо дані для payload
-  // 5. Відправляємо результат - екшен створення контакту
   const handleSubmit = (values, actions) => {
     dispatch(
       addContact({
-        id: crypto.randomUUID(),
         name: values.username,
         number: values.number,
-      })
-    );
+      }));
     actions.resetForm();
   };
+
   const nameFieldId = useId();
   const numberFieldId = useId();
   const initialValues = {
     username: "",
     number: "",
   };
+  
   return (
     <Formik
       initialValues={initialValues}

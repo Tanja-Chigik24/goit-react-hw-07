@@ -1,18 +1,13 @@
+import { useId } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeFilter, selectNameFilter } from "../../redux/filtersSlice";
 import css from "./SearchBox.module.css";
 
-// 1. Імпортуємо хук
-import { useSelector, useDispatch } from "react-redux";
-// 2. Імпортуємо фабрику екшену
-import { changeFilter } from "../../redux/filtersSlice";
-
 export const SearchBox = () => {
-  // 3. Отримуємо посилання на функцію відправки екшенів
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.filters.name);
-  // 4. Викликаємо фабрику екшену та передаємо значення фільтра
-  // 5. Відправляємо результат - екшен зміни фільтра
-
-  const handleFilterChange = (filter) => dispatch(changeFilter(filter));
+  const id = useId();
+  const nameFilter = useSelector(selectNameFilter);
+  const handleFilterChange = (e) => dispatch(changeFilter(e.target.value));
 
   return (
     <div className={css.box}>
@@ -20,7 +15,8 @@ export const SearchBox = () => {
       <input
         className={css.input}
         type="text"
-        onChange={(e) => handleFilterChange(e.target.value)}
+        onChange={handleFilterChange}
+        id={id}
       />
     </div>
   );
